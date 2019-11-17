@@ -12,7 +12,7 @@
 
 // ------------------- change the following if you want ---------------------- //
 #define DMA_TX_BUFFER_SIZE          128
-#define DMA_RX_BUFFER_SIZE          128
+#define DMA_RX_BUFFER_SIZE          4096
 
 // ------------------- do not change the rest ------------------------//
 
