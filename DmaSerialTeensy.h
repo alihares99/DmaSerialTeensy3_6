@@ -25,14 +25,13 @@ private:
     int rxPinNo;
     int txPinNo;
 
-    uint8_t txBuffer[DMA_TX_BUFFER_SIZE];
-    uint8_t rxBuffer[DMA_RX_BUFFER_SIZE];
+    uint8_t txBuffer[DMA_TX_BUFFER_SIZE] = {0};
+    uint8_t rxBuffer[DMA_RX_BUFFER_SIZE] = {0};
     volatile uint32_t txBufferTail;
     volatile uint32_t txBufferHead;
     volatile uint32_t txBufferCount;
     volatile uint32_t rxBufferTail;
     volatile uint32_t rxBufferHead;
-    volatile uint32_t rxBufferCount;
 
     volatile bool transmitting = false;
 

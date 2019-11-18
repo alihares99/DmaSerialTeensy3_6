@@ -199,7 +199,6 @@ void DmaSerialTeensy::begin(uint32_t baud) {
     txBufferCount = 0;
     rxBufferTail = 0;
     rxBufferHead = 0;
-    rxBufferCount = 0;
 
     // set the rx and tx pins:
     switch (rxPinNo) {
@@ -272,9 +271,9 @@ int DmaSerialTeensy::available() {
     int biter = dmaChannelReceive->TCD->BITER;
     int citer = dmaChannelReceive->TCD->CITER;
     int csr = dmaChannelReceive->TCD->CSR;
-    if (csr & 0x80) { // done
-        // if done our version of buffer indexes are up to date
-        return rxBufferCount;
+    if (csr & 0x80) { // done so Rx buffer is full
+        if (rxBufferTail == 0) return 0;
+        else return DMA_RX_BUFFER_SIZE - rxBufferTail;
     }
     else {
         // our version of buffer indexes are not update
@@ -285,7 +284,6 @@ int DmaSerialTeensy::available() {
 }
 
 int DmaSerialTeensy::read() {
-    rxBufferCount--;
     uint8_t c = rxBuffer[rxBufferTail++];
     if (rxBufferTail >= DMA_RX_BUFFER_SIZE)
         rxBufferTail -= DMA_RX_BUFFER_SIZE;
@@ -302,7 +300,7 @@ size_t DmaSerialTeensy::write(uint8_t c) {
 }
 
 size_t DmaSerialTeensy::write(char c) {
-    write((uint8_t *)&c, 1);
+    return write((uint8_t *)&c, 1);
 }
 
 size_t DmaSerialTeensy::write(const uint8_t *p, size_t len) {
@@ -341,6 +339,7 @@ size_t DmaSerialTeensy::write(const uint8_t *p, size_t len) {
             __enable_irq();
         }
     }
+    return len;
 
 }
 
@@ -353,16 +352,6 @@ void DmaSerialTeensy::rxIsr() {
     if (rxBufferHead >= DMA_RX_BUFFER_SIZE)
         rxBufferHead -= DMA_RX_BUFFER_SIZE;
 
-    // increase count:
-    rxBufferCount += count;
-
-    // check if count overflowed:
-    if (rxBufferCount > DMA_RX_BUFFER_SIZE) {
-        rxBufferCount = DMA_RX_BUFFER_SIZE;
-        rxBufferTail = rxBufferHead + 1;
-        if (rxBufferTail >= DMA_RX_BUFFER_SIZE)
-            rxBufferTail -= DMA_RX_BUFFER_SIZE;
-    }
 }
 
 void DmaSerialTeensy::txIsr() {
