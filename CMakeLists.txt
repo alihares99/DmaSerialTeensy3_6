@@ -6,15 +6,122 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(${project_name}
         DmaTeensy3_6.ino
-        kinetis.h
-        DMAChannel.cpp DMAChannel.h
-        HardwareSerial.h HardwareSerial1.cpp HardwareSerial2.cpp HardwareSerial3.cpp HardwareSerial4.cpp
-        HardwareSerial5.cpp HardwareSerial6.cpp
-        core_pins.h
-        serial1.c serial2.c serial3.c serial4.c serial5.c serial6.c serial6_lpuart.c
         DmaSerialTeensy.cpp DmaSerialTeensy.h
-        Stream.cpp Stream.h
-        Print.cpp Print.h
+
+        libs/analog.c
+        libs/Arduino.h
+        libs/arm_common_tables.h
+        libs/arm_math.h
+        libs/AudioStream.cpp
+        libs/AudioStream.h
+        libs/avr_emulation.cpp
+        libs/avr_emulation.h
+        libs/avr_functions.h
+        libs/binary.h
+        libs/Client.h
+        libs/core_cm4.h
+        libs/core_cm4_simd.h
+        libs/core_cmInstr.h
+        libs/core_id.h
+        libs/core_pins.h
+        libs/DMAChannel.cpp
+        libs/DMAChannel.h
+        libs/eeprom.c
+        libs/elapsedMillis.h
+        libs/EventResponder.cpp
+        libs/EventResponder.h
+        libs/FS.h
+        libs/HardwareSerial.h
+        libs/HardwareSerial1.cpp
+        libs/HardwareSerial2.cpp
+        libs/HardwareSerial3.cpp
+        libs/HardwareSerial4.cpp
+        libs/HardwareSerial5.cpp
+        libs/HardwareSerial6.cpp
+        libs/IntervalTimer.cpp
+        libs/IntervalTimer.h
+        libs/IPAddress.cpp
+        libs/IPAddress.h
+        libs/Keyboard.h
+        libs/keylayouts.c
+        libs/keylayouts.h
+        libs/kinetis.h
+        libs/main.cpp
+        libs/math_helper.c
+        libs/math_helper.h
+        libs/MIDIUSB.h
+        libs/mk20dx128.c
+        libs/mk20dx128.h
+        libs/Mouse.h
+        libs/new.cpp
+        libs/new.h
+        libs/nonstd.c
+        libs/pgmspace.h
+        libs/pins_arduino.h
+        libs/pins_teensy.c
+        libs/Print.cpp
+        libs/Print.h
+        libs/Printable.h
+        libs/ser_print.c
+        libs/ser_print.h
+        libs/serial1.c
+        libs/serial1_doughboy.txt
+        libs/serial2.c
+        libs/serial3.c
+        libs/serial4.c
+        libs/serial5.c
+        libs/serial6.c
+        libs/serial6_lpuart.c
+        libs/Server.h
+        libs/SPIFIFO.h
+        libs/Stream.cpp
+        libs/Stream.h
+        libs/Tone.cpp
+        libs/touch.c
+        libs/Udp.h
+        libs/usb_audio.cpp
+        libs/usb_audio.h
+        libs/usb_desc.c
+        libs/usb_desc.h
+        libs/usb_dev.c
+        libs/usb_dev.h
+        libs/usb_flightsim.cpp
+        libs/usb_flightsim.h
+        libs/usb_inst.cpp
+        libs/usb_joystick.c
+        libs/usb_joystick.h
+        libs/usb_keyboard.c
+        libs/usb_keyboard.h
+        libs/usb_mem.c
+        libs/usb_mem.h
+        libs/usb_midi.c
+        libs/usb_midi.h
+        libs/usb_mouse.c
+        libs/usb_mouse.h
+        libs/usb_mtp.c
+        libs/usb_mtp.h
+        libs/usb_names.h
+        libs/usb_rawhid.c
+        libs/usb_rawhid.h
+        libs/usb_seremu.c
+        libs/usb_seremu.h
+        libs/usb_serial.c
+        libs/usb_serial.h
+        libs/usb_touch.c
+        libs/usb_touch.h
+        libs/usb_undef.h
+        libs/WCharacter.h
+        libs/WConstants.h
+        libs/wiring.h
+        libs/wiring_private.h
+        libs/WMath.cpp
+        libs/WProgram.h
+        libs/WString.cpp
+        libs/WString.h
+        libs/yield.cpp
+
         )
 
 add_definitions(-D__MK66FX1M0__ -DTEENSYDUINO=148 -DF_CPU=180000000 -D__cplusplus)
+include_directories(libs)
+

@@ -31,7 +31,7 @@ private:
     volatile uint32_t txBufferHead;
     volatile uint32_t txBufferCount;
     volatile uint32_t rxBufferTail;
-    volatile uint32_t rxBufferHead;
+    //volatile uint32_t rxBufferHead; // no need for this
 
     volatile bool transmitting = false;
 

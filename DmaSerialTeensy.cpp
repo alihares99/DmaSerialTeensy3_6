@@ -26,41 +26,15 @@ DmaSerialTeensy dmaSerial4(4);
 
 #endif
 
-void DmaSerialTeensy::txCompleteCallback1() {
-    dmaSerial1.txIsr();
-}
-
-void DmaSerialTeensy::rxCompleteCallback1() {
-    dmaSerial1.rxIsr();
-}
-
-void DmaSerialTeensy::txCompleteCallback2() {
-    dmaSerial2.txIsr();
-}
-
-void DmaSerialTeensy::rxCompleteCallback2() {
-    dmaSerial2.rxIsr();
-}
-
-void DmaSerialTeensy::txCompleteCallback3() {
-    dmaSerial3.txIsr();
-}
-
-void DmaSerialTeensy::rxCompleteCallback3() {
-    dmaSerial3.rxIsr();
-}
-
-void DmaSerialTeensy::txCompleteCallback4() {
-    dmaSerial4.txIsr();
-}
-
-void DmaSerialTeensy::rxCompleteCallback4() {
-    dmaSerial4.rxIsr();
-}
-
-void DmaSerialTeensy::rxCompleteCallback5() {
-    //dmaSerial5.rxIsr(); // not supported yet
-}
+void DmaSerialTeensy::txCompleteCallback1() {dmaSerial1.txIsr();}
+void DmaSerialTeensy::rxCompleteCallback1() {dmaSerial1.rxIsr();}
+void DmaSerialTeensy::txCompleteCallback2() {dmaSerial2.txIsr();}
+void DmaSerialTeensy::rxCompleteCallback2() {dmaSerial2.rxIsr();}
+void DmaSerialTeensy::txCompleteCallback3() {dmaSerial3.txIsr();}
+void DmaSerialTeensy::rxCompleteCallback3() {dmaSerial3.rxIsr();}
+void DmaSerialTeensy::txCompleteCallback4() {dmaSerial4.txIsr();}
+void DmaSerialTeensy::rxCompleteCallback4() {dmaSerial4.rxIsr();}
+void DmaSerialTeensy::rxCompleteCallback5() {/*dmaSerial5.rxIsr(); // not supported yet*/}
 
 DmaSerialTeensy::DmaSerialTeensy(int serialNo)
     : serialNo(serialNo)
@@ -165,8 +139,9 @@ void DmaSerialTeensy::begin(uint32_t baud) {
         dmaChannelReceive->source(uartBaseAddr->D);
         dmaChannelReceive->destinationBuffer(rxBuffer, DMA_RX_BUFFER_SIZE);
         dmaChannelReceive->triggerAtHardwareEvent(dmamuxSource);
-        dmaChannelReceive->attachInterrupt(rxIsr);
-        dmaChannelReceive->interruptAtCompletion();
+        // no need for rx Interrupt:
+        // dmaChannelReceive->attachInterrupt(rxIsr);
+        // dmaChannelReceive->interruptAtCompletion();
         dmaChannelReceive->enable();
     }
 
@@ -198,7 +173,7 @@ void DmaSerialTeensy::begin(uint32_t baud) {
     txBufferHead = 0;
     txBufferCount = 0;
     rxBufferTail = 0;
-    rxBufferHead = 0;
+    // rxBufferHead = 0;
 
     // set the rx and tx pins:
     switch (rxPinNo) {
@@ -346,12 +321,14 @@ size_t DmaSerialTeensy::write(const uint8_t *p, size_t len) {
 void DmaSerialTeensy::rxIsr() {
     dmaChannelReceive->clearInterrupt();
 
+    // no need for rx interrupt
+    /*
     // move the head:
     int count = dmaChannelReceive->TCD->BITER;
     rxBufferHead += count;
     if (rxBufferHead >= DMA_RX_BUFFER_SIZE)
         rxBufferHead -= DMA_RX_BUFFER_SIZE;
-
+    */
 }
 
 void DmaSerialTeensy::txIsr() {
