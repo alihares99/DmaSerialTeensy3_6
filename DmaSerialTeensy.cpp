@@ -24,12 +24,12 @@ DmaSerialTeensy dmaSerial2(2);
 DmaSerialTeensy dmaSerial3(3);
 DmaSerialTeensy dmaSerial4(4);
 
-#endif
-
 void DmaSerialTeensy::txCompleteCallback1() {dmaSerial1.txIsr();}
 void DmaSerialTeensy::txCompleteCallback2() {dmaSerial2.txIsr();}
 void DmaSerialTeensy::txCompleteCallback3() {dmaSerial3.txIsr();}
 void DmaSerialTeensy::txCompleteCallback4() {dmaSerial4.txIsr();}
+
+#endif
 
 DmaSerialTeensy::DmaSerialTeensy(int serialNo)
     : serialNo(serialNo)
