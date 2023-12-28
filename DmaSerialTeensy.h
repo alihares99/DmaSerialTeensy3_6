@@ -68,8 +68,12 @@ private:
     void txIsr();
 };
 
+#if defined(__MK66FX1M0__)
+
 extern DmaSerialTeensy dmaSerial1;
 extern DmaSerialTeensy dmaSerial2;
 extern DmaSerialTeensy dmaSerial3;
 extern DmaSerialTeensy dmaSerial4;
+
+#endif
 

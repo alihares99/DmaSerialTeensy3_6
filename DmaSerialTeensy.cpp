@@ -9,7 +9,7 @@
 #include <algorithm>
 
 
-#ifdef __MK66FX1M0__ // teensy 3.6
+#if defined(__MK66FX1M0__) // teensy 3.6
 const DmaSerialTeensy::SerialPin DmaSerialTeensy::serialPins[6][3] = {
     {{-1, -1}, {-1, -1} , {-1, -1}}, // Serial is ignored
     {{0, 1}, {27, 26} , {21, 5}}, // Serial1
